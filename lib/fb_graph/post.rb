@@ -6,7 +6,7 @@ module FbGraph
     include Connections::Likes::Likable
     extend Searchable
 
-    attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags, :place
+    attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags, :place,:is_published,:is_hidden
 
     def initialize(identifier, attributes = {})
       super
@@ -108,6 +108,12 @@ module FbGraph
         when Hash
           Place.new(place[:id], place)
         end
+      end
+      if attributes[:is_published]
+        @is_published = attributes[:is_published]
+      end
+      if attributes[:is_hidden]
+        @is_hidden = attributes[:is_hidden]
       end
 
       # cached connection
